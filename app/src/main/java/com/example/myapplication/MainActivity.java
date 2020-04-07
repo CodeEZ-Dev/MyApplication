@@ -23,22 +23,39 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     Button buttonSubscribe;
+    // [START declare_analytics]
+    private FirebaseAnalytics mFirebaseAnalytics;
+    // [END declare_analytics]
+    //private static Tracker sTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String name="murali";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buttonSubscribe = findViewById(R.id.button_subscribe);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // [START shared_app_measurement]
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        //mFirebaseAnalytics.getAppInstanceId();
+       // mFirebaseAnalytics.getFirebaseInstanceId();
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        //mFirebaseAnalytics.setCurrentScreen();
+        mFirebaseAnalytics.setUserId(name);
+        // [END shared_app_measurement]
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
